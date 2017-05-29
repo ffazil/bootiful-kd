@@ -10,6 +10,7 @@ import javax.persistence.Id
  * @since 29/05/17
  *
  * Implementation of simple Jpa Entity. This is immutable, I guess. Much better than Lombok + Java.
+ * Class and constructor declaration merged.
  */
 @Entity
 data class Person(val firstname: String? = null,
