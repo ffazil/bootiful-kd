@@ -14,8 +14,21 @@ import javax.persistence.OneToMany
  * Class and constructor declaration merged.
  */
 @Entity
-data class Person constructor(val firstname: String? = null,
-                              val lastname: String? = null) : AbstractEntity(){
+class Person  : AbstractEntity{
+
+    val firstname: String?
+    val lastname: String?
+
+    constructor(firstname: String, lastname: String): super() {
+
+        this.firstname = firstname
+        this.lastname = lastname
+    }
+
+    private constructor(){
+        this.firstname = null;
+        this.lastname = null;
+    }
 
     @ReadOnlyProperty
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

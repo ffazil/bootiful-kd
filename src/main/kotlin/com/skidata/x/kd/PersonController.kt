@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod
  */
 @Slf4j
 @RepositoryRestController
-class PersonController(private val personRepository: PersonRepository) {
+class PersonController(val personRepository: PersonRepository) {
 
 
     @RequestMapping(path = arrayOf("/persons/{id}/addresses"), method = arrayOf(RequestMethod.PUT))
@@ -26,6 +26,9 @@ class PersonController(private val personRepository: PersonRepository) {
         return ResponseEntity.ok(person)
     }
 
+    /**
+     * Reject HTTP Patch for persons.
+     */
     @RequestMapping(path = arrayOf("/persons/{id}"), method = arrayOf(RequestMethod.PATCH))
     internal fun patch(@PathVariable("id") person: Person, @RequestBody updatedPerson: Person): ResponseEntity<*> {
         return ResponseEntity<Object>(HttpStatus.METHOD_NOT_ALLOWED)
