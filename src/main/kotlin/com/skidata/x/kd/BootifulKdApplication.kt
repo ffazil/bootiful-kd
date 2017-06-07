@@ -21,7 +21,7 @@ open class BootifulKdApplication{
                 .map { p -> p.split(",") }
                 //Not really sure that this is recommended way.
                 .forEach { p ->
-                    var person = personRepository.save(Person(p[0], p[1]))
+                    val person = personRepository.save(Person(p[0], p[1]))
                     log.info(person.toString())
                 }
     }
@@ -30,3 +30,5 @@ open class BootifulKdApplication{
 fun main(args: Array<String>) {
     SpringApplication.run(BootifulKdApplication::class.java, *args)
 }
+
+

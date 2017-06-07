@@ -1,9 +1,10 @@
 package com.skidata.x.kd
 
+import com.fasterxml.jackson.annotation.JsonProperty
+import org.springframework.data.annotation.ReadOnlyProperty
+import javax.persistence.CascadeType
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.OneToMany
 
 /**
  * @author firoz
@@ -13,17 +14,19 @@ import javax.persistence.Id
  * Class and constructor declaration merged.
  */
 @Entity
-data class Person(val firstname: String? = null,
-                  val lastname: String? = null,
-                  @Id
-                  @GeneratedValue(strategy = GenerationType.AUTO)
-                  val id: Long = -1) {
+data class Person constructor(val firstname: String? = null,
+                              val lastname: String? = null) : AbstractEntity(){
 
-    /**
-     * The $ notation is amazing.
-     */
-    override fun toString(): String {
-        return "Person[$id:$firstname $lastname]"
+    @ReadOnlyProperty
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @OneToMany(cascade = arrayOf(CascadeType.ALL))
+    var addresses : Set<Address> = HashSet(0)
+        private set
+
+    fun address(address: Address) : Person {
+        this.addresses = this.addresses + address
+        return this
     }
+
 
 }
